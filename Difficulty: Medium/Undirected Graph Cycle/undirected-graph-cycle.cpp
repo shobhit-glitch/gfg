@@ -5,35 +5,36 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-  bool detect(int src,vector<int> adj[],int vis[]){
-      vis[src]=1;
-      queue<pair<int,int>>q;
-      q.push({src,-1});
-      
-      while(!q.empty()){
-          int node=q.front().first;
-          int parent=q.front().second;
-          q.pop();
-          for(auto adjes :adj[node]){
-              if(!vis[adjes]){
-                  vis[adjes]=1;
-                  q.push({adjes,node});
-              }
-              else if(parent!=adjes){
-                  return true;
-              }
-          }
-          
-      }
-      return false;
-  }
+ bool iscyclebfs(int src,vector<int> adj[],unordered_map<int,bool>vis){
+     unordered_map<int,int>parent;
+     parent[src]=-1;
+     vis[src]=1;
+     queue<int>q;
+     q.push(src);
+     while(!q.empty()){
+         int front=q.front();
+         q.pop();
+         for(auto neigh : adj[front]){
+             if(vis[neigh]==true && neigh!=parent[front]){
+                 return true;
+             }
+             else if(vis[neigh]==false){
+                 q.push(neigh);
+                 vis[neigh]=true;
+                 parent[neigh]=front;
+             }
+         }
+     }
+     return false;
+ }
     // Function to detect cycle in an undirected graph.
     bool isCycle(int V, vector<int> adj[]) {
         // Code here
-        int vis[V]={0};
-        for(int i=0;i<V;i++){
+        unordered_map<int,bool>vis;
+        for(int i=0l;i<V;i++){
             if(!vis[i]){
-                if(detect(i,adj,vis)){
+                bool ans=iscyclebfs(i,adj,vis);
+                if(ans){
                     return true;
                 }
             }
