@@ -6,7 +6,7 @@ using namespace std;
 class Solution
 {
 	public:
-	void dfs(int node, vector<int> adj[], vector<int>& vis, stack<int>& st) {
+	/*void dfs(int node, vector<int> adj[], vector<int>& vis, stack<int>& st) {
         vis[node] = 1;
         for (auto it : adj[node]) {
             if (!vis[it]) {
@@ -14,11 +14,19 @@ class Solution
             }
         }
         st.push(node);
+    }*/
+    void dfs(int node,unordered_map<int,bool> &visited,stack<int> &st,vector<int> adj[]){
+        visited[node]=true;
+        for( auto neigh:adj[node]){
+            if(!visited[neigh]){
+                dfs(neigh,visited,st,adj);
+            }
+        }
+        st.push(node);
     }
-
     // Function to return list containing vertices in Topological order.
     vector<int> topoSort(int V, vector<int> adj[]) {
-        vector<int> vis(V, 0); // Initialize the vis vector
+        /*vector<int> vis(V, 0); // Initialize the vis vector
         stack<int> st;
         for (int i = 0; i < V; i++) {
             if (!vis[i]) {
@@ -30,7 +38,20 @@ class Solution
             topoOrder.push_back(st.top());
             st.pop();
         }
-        return topoOrder;
+        return topoOrder;*/
+        unordered_map<int,bool>visited;
+        stack<int>st;
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                dfs(i,visited,st,adj);
+            }
+        }
+        vector<int>toposort;
+        while(!st.empty()){
+            toposort.push_back(st.top());
+            st.pop();
+        }
+        return toposort;
     }
 };
 
