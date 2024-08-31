@@ -39,7 +39,7 @@ class Solution
             st.pop();
         }
         return topoOrder;*/
-        unordered_map<int,bool>visited;
+        /*unordered_map<int,bool>visited;
         stack<int>st;
         for(int i=0;i<V;i++){
             if(!visited[i]){
@@ -51,7 +51,37 @@ class Solution
             toposort.push_back(st.top());
             st.pop();
         }
-        return toposort;
+        return toposort;*/
+        // **************[ KAHN'S ALGORITHM ]*****************
+        vector<int>indeg(V);
+        for(int i=0;i<V;i++){
+            for(auto j:adj[i]){
+                indeg[j]++;
+            }
+        }
+        queue<int>q;
+        for(int i=0;i<V;i++){
+            if(indeg[i]==0){
+                q.push(i);
+            }
+        }
+        
+        //bfs
+        vector<int>ans;
+        while(!q.empty()){
+            int f=q.front();
+            ans.push_back(f);
+            q.pop();
+            for(auto neigh: adj[f]){
+                indeg[neigh]--;
+                if(indeg[neigh]==0){
+                    q.push(neigh);
+                }
+            }
+            
+        }
+        return ans;
+        
     }
 };
 
