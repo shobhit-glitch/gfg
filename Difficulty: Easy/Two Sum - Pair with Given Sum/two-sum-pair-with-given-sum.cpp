@@ -9,20 +9,19 @@ class Solution {
   public:
     bool twoSum(vector<int>& arr, int target) {
         // code here
+        sort(arr.begin(),arr.end());
         int i=0;
         int j=arr.size()-1;
-        sort(arr.begin(),arr.end());
         while(i<j){
             if(arr[i]+arr[j]==target){
                 return true;
             }
-            if(arr[i]+arr[j]<target){
-                i++;
-            }
             if(arr[i]+arr[j]>target){
                 j--;
             }
-            
+            if(arr[i]+arr[j]<target){
+                i++;
+            }
         }
         return false;
     }
