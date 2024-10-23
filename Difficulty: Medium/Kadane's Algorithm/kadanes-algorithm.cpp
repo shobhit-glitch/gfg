@@ -12,9 +12,8 @@ class Solution {
     int maxSubarraySum(vector<int> &arr) {
         // code here...
         int maxi=INT_MIN;
-        int n=arr.size();
         int sum=0;
-        for(int i=0;i<n;i++){
+        for(int i=0;i<arr.size();i++){
             sum+=arr[i];
             if(sum>maxi){
                 maxi=sum;
@@ -24,6 +23,7 @@ class Solution {
             }
         }
         return maxi;
+        
     }
 };
 
