@@ -1,72 +1,67 @@
 //{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
-void swap(int *xp, int *yp)
-{
-    int temp = *xp;
-    *xp = *yp;
-    *yp = temp;
-}
+
+class Array {
+  public:
+    template <class T>
+    static void input(vector<T> &A, int n) {
+        for (int i = 0; i < n; i++) {
+            scanf("%d ", &A[i]);
+        }
+    }
+
+    template <class T>
+    static void print(vector<T> &A) {
+        for (int i = 0; i < A.size(); i++) {
+            cout << A[i] << " ";
+        }
+        cout << endl;
+    }
+};
 
 
 // } Driver Code Ends
-class Solution
-{
-    public:
-    int select(int arr[], int i)
-    {
-        // code here such that selectionSort() sorts arr[]
-    }
-     
-    void selectionSort(int arr[], int n)
-    {
-       //code here
-       
-       for(int i=0;i<n;i++){
-           
-           int mini=i;
-           for(int j=i;j<n;j++){
-               if(arr[mini]>arr[j]){
-                   mini=j;
-               }
-           }
-           int temp=arr[i];
-           arr[i]=arr[mini];
-           arr[mini]=temp;
-       }
+class Solution {
+  public:
+    // Function to perform selection sort on the given array.
+    void selectionSort(vector<int> &arr) {
+        // code here
+        int n=arr.size();
+        for(int i=0;i<n;i++){
+            int mini=i;
+            for(int j=i+1;j<n;j++){
+                if(arr[j]<arr[mini]){
+                    mini=j;
+                }
+            }
+            swap(arr[i],arr[mini]);
+        }
     }
 };
 
 //{ Driver Code Starts.
- 
-/* Function to print an array */
-void printArray(int arr[], int size)
-{
-    int i;
-    for (i=0; i < size; i++)
-        printf("%d ", arr[i]);
-    printf("\n");
-}
- 
-// Driver program to test above functions
-int main()
-{
-    int arr[1000],n,T,i;
-  
-    scanf("%d",&T);
-    
-    while(T--){
-        
-    scanf("%d",&n);
-    
-    for(i=0;i<n;i++)
-      scanf("%d",&arr[i]);
-      
-    Solution ob;  
-    ob.selectionSort(arr, n);
-    printArray(arr, n);
+
+int main() {
+    int t;
+    scanf("%d ", &t);
+    while (t--) {
+
+        vector<int> a;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            a.push_back(number);
+        }
+
+        Solution obj;
+        obj.selectionSort(a);
+
+        Array::print(a);
+        cout << "~" << endl;
     }
-    return 0;
 }
 
 // } Driver Code Ends
